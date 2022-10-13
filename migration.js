@@ -10,6 +10,11 @@ db.run(`CREATE TABLE IF NOT EXISTS Artist (
   biography TEXT NOT NULL,
   is_currently_employed INTEGER DEFAULT 1
 )`, function (err) {
-  console.log(err);
-  return;
+  if (err) {
+    console.log(err);
+    return;
+  } else {
+    console.log('Database is correctly created');
+    return;
+  }
 });
