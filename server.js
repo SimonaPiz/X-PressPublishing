@@ -5,6 +5,8 @@ const cors = require('cors');
 const errorHandler = require('errorhandler');
 const morgan = require('morgan');
 
+module.exports = app;
+
 const PORT = process.env.PORT || 4001;
 
 app.use(bodyParser.json());
