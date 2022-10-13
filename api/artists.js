@@ -36,3 +36,8 @@ artistsRouter.get('/', (req, res, next) => {
     }
   );
 });
+
+// GET /api/artists/:artistId
+artistsRouter.get('/:artistId', (req, res, next) => {
+  res.status(200).send(req.artist);
+});
