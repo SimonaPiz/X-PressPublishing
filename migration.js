@@ -9,12 +9,27 @@ db.run(`CREATE TABLE IF NOT EXISTS Artist (
   date_of_birth TEXT NOT NULL,
   biography TEXT NOT NULL,
   is_currently_employed INTEGER DEFAULT 1
-)`, function (err) {
+);`, function (err) {
   if (err) {
     console.log(err);
     return;
   } else {
-    console.log('Database is correctly created');
+    console.log('Artist table is correctly created');
+    return;
+  }
+});
+
+// Create table Series in database
+db.run(`CREATE TABLE IF NOT EXISTS Series (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name TEXT NOT NULL,
+  description TEXT NOT NULL
+);`, function (err) {
+  if (err) {
+    console.log(err);
+    return;
+  } else {
+    console.log('Series table is correctly created');
     return;
   }
 });
