@@ -1,28 +1,36 @@
 'use strict';
 
-const webpack = require('webpack'); // eslint-disable-line no-unused-vars
+var path = require('path');
+var webpack = require('webpack');
 
 module.exports = {
+  mode: 'development',
   entry: './src/index.js',
   output: {
-    path: __dirname,
-    filename: './public/js/bundle.js',
+      path: path.resolve(__dirname, 'build'),
+      filename: 'app.bundle.js'
   },
   context: __dirname,
   devtool: 'source-map',
   module: {
-    loaders: [
-      {
-        test: /jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader',
-        query: {
-          presets: ['react', 'es2015', 'stage-2'],
-        }
-      }
-    ]
+      rules: [
+          {
+              test: /\.(js|jsx)$/,
+              exclude: /node_modules/,
+              use: {
+                loader: 'babel-loader',
+                options: {
+                    presets: [
+                        ['@babel/preset-env', { targets: "defaults" }],
+                        ["@babel/preset-react"]
+                    ]
+                }
+              },
+          }
+      ]
   },
-  node: {
-    fs: "empty"
-  }
+  stats: {
+      colors: true
+  },
+  devtool: 'source-map'
 };
