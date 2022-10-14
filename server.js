@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(errorHandler());
 app.use(morgan('dev'));
+app.use(express.static('public'));
 
 // Inport API Router and mount it at all routes starting at '/api'
 const apiRouter = require('./api/api');

@@ -7,7 +7,7 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 module.exports = artistsRouter;
 
 // Add param ':artistId' to set it in all Router
-artistsRouter.param(':artistId', (req, res, next, index) => {
+artistsRouter.param('artistId', (req, res, next, index) => {
   const artistId = Number(index);
   if (artistId && artistId >= 0) {  
     db.get(
