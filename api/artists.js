@@ -98,3 +98,42 @@ artistsRouter.post('/', validateData, (req, res, next) => {
     }
   );
 });
+
+// PUT - Update artist by artistId
+artistsRouter.put('/:artistId', (req, res, next) => {
+  const updateArtist = req.body.artist;
+  //console.log(updateArtist);
+  updateArtist.isCurrentlyEmployed = req.query.isCurrentlyEmployed === 0 ? 0 : 1;
+
+  if (
+    typeof updateArtist.name !== 'string' || !updateArtist.name ||
+    typeof updateArtist.dateOfBirth !== 'string' || !updateArtist.dateOfBirth ||
+    typeof updateArtist.biography !== 'string' || !updateArtist.biography 
+  ) {
+    res.sendStatus(400);
+    return;
+  } else {
+    db.run(
+      `UPDATE Artist SET 
+      name = '${updateArtist.name}',
+      date_of_birth = '${updateArtist.dateOfBirth}',
+      biography = '${updateArtist.biography}',
+      is_currently_employed = '${updateArtist.isCurrentlyEmployed}'
+      WHERE id = ${req.artistId};`,
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+        db.get(
+          `SELECT * FROM Artist WHERE id = ${req.artistId};`,
+          (err, row) => {
+            if (err) {
+              return next(err);
+            }
+            res.status(200).send({artist: row});
+          }
+        );
+      }
+    );
+  }
+});
