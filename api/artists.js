@@ -15,17 +15,20 @@ artistsRouter.param(':artistId', (req, res, next, index) => {
       [artistId],
       function (err, row) {
         if (err) {
-          next(err);
+          return next(err);
         } else if (row) {
           req.artist = row;
+          req.artistId = artistId;
           next();
         } else {
           res.sendStatus(404);
+          return;
         }
       }
     );
   } else {
     res.sendStatus(404);
+    return;
   }
 });
 
@@ -35,7 +38,7 @@ artistsRouter.get('/', (req, res, next) => {
     `SELECT * FROM Artist WHERE is_currently_employed = 1;`,
     function (err, rows) {
       if (err) {
-        next(err);
+        return next(err);
       }
       res.status(200).send({artists: rows});
     }
@@ -55,10 +58,10 @@ const validateData = (req, res, next) => {
   if (
     typeof newData.name !== 'string' || !newData.name ||
     typeof newData.dateOfBirth !== 'string' || !newData.dateOfBirth ||
-    typeof newData.biography !== 'string' || !newData.biography 
+    typeof newData.biography !== 'string' || !newData.biography
   ) {
     res.sendStatus(400);
-    next();
+    return;
   } else {
     //console.log('Data are valid');
     next();
@@ -69,22 +72,25 @@ const validateData = (req, res, next) => {
 artistsRouter.post('/', validateData, (req, res, next) => {
   //console.log(req.body.artist);
   const newArtist = req.body.artist;
+  newArtist.isCurrentlyEmployed = req.body.artist.isCurrentlyEmployed === 0 ? 0 : 1;
+
   db.run(
-    `INSERT INTO Artist (name, date_of_birth, biography)
+    `INSERT INTO Artist (name, date_of_birth, biography, is_currently_employed)
     VALUES (
       '${newArtist.name}',
       '${newArtist.dateOfBirth}',
-      '${newArtist.biography}'
+      '${newArtist.biography}',
+      '${newArtist.isCurrentlyEmployed}'
     );`,
     function (err) {
       if (err) {
-        next(err);
+        return next(err);
       }
       db.get(
         `SELECT * FROM Artist WHERE id = ${this.lastID};`,
         (err, row) => {
           if (err) {
-            next(err);
+            return next(err);
           }
           res.status(201).send({artist: row});
         }
