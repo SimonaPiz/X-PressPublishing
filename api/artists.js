@@ -46,3 +46,49 @@ artistsRouter.get('/', (req, res, next) => {
 artistsRouter.get('/:artistId', (req, res, next) => {
   res.status(200).send({artist: req.artist});
 });
+
+// Create function to validate new artist before adding to the database
+const validateData = (req, res, next) => {
+  const newData = req.body.artist;
+  //console.log(newData);
+
+  if (
+    typeof newData.name !== 'string' || !newData.name ||
+    typeof newData.dateOfBirth !== 'string' || !newData.dateOfBirth ||
+    typeof newData.biography !== 'string' || !newData.biography 
+  ) {
+    res.sendStatus(400);
+    next();
+  } else {
+    //console.log('Data are valid');
+    next();
+  }
+};
+
+// POST - Create new artist
+artistsRouter.post('/', validateData, (req, res, next) => {
+  //console.log(req.body.artist);
+  const newArtist = req.body.artist;
+  db.run(
+    `INSERT INTO Artist (name, date_of_birth, biography)
+    VALUES (
+      '${newArtist.name}',
+      '${newArtist.dateOfBirth}',
+      '${newArtist.biography}'
+    );`,
+    function (err) {
+      if (err) {
+        next(err);
+      }
+      db.get(
+        `SELECT * FROM Artist WHERE id = ${this.lastID};`,
+        (err, row) => {
+          if (err) {
+            next(err);
+          }
+          res.status(201).send({artist: row});
+        }
+      );
+    }
+  );
+});
