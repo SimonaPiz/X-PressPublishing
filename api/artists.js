@@ -80,7 +80,7 @@ artistsRouter.post('/', validateData, (req, res, next) => {
       '${newArtist.name}',
       '${newArtist.dateOfBirth}',
       '${newArtist.biography}',
-      '${newArtist.isCurrentlyEmployed}'
+      ${newArtist.isCurrentlyEmployed}
     );`,
     function (err) {
       if (err) {
@@ -118,7 +118,7 @@ artistsRouter.put('/:artistId', (req, res, next) => {
       name = '${updateArtist.name}',
       date_of_birth = '${updateArtist.dateOfBirth}',
       biography = '${updateArtist.biography}',
-      is_currently_employed = '${updateArtist.isCurrentlyEmployed}'
+      is_currently_employed = ${updateArtist.isCurrentlyEmployed}
       WHERE id = ${req.artistId};`,
       function (err) {
         if (err) {
@@ -136,4 +136,27 @@ artistsRouter.put('/:artistId', (req, res, next) => {
       }
     );
   }
+});
+
+// DELETE - Delete artist by its id
+artistsRouter.delete('/:artistId', (req, res, next) => {
+    db.run(
+      `UPDATE Artist SET
+      is_currently_employed = 0
+      WHERE id = ${req.artistId};`,
+      function(err) {
+        if (err) {
+          return next(err);
+        }
+        db.get(
+          `SELECT * FROM Artist WHERE id = ${req.artistId};`,
+          (err, row) => {
+            if (err) {
+              return next(err);
+            }
+            res.status(200).send({artist: row});
+          }
+        );
+      } 
+    );
 });
