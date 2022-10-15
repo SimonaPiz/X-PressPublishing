@@ -32,6 +32,10 @@ seriesRouter.param('seriesId', (req, res, next, index) => {
   }
 });
 
+//Import and connect issuesRouter for path 'api/series/:seriesId/issues'
+const issuesRouter = require('./issues');
+seriesRouter.use('/:seriesId/issues', issuesRouter);
+
 // GET /api/series
 seriesRouter.get('/', (req, res, next) => {
   db.all(
