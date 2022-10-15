@@ -49,3 +49,48 @@ seriesRouter.get('/', (req, res, next) => {
 seriesRouter.get('/:seriesId', (req, res, next) => {
   res.status(200).send({series: req.series});
 });
+
+// Create function to validate new series before adding to the database
+const validateData = (req, res, next) => {
+  const newData = req.body.series;
+  //console.log(newData);
+
+  if (
+    typeof newData.name !== 'string' || !newData.name ||
+    typeof newData.description !== 'string' || !newData.description 
+  ) {
+    res.sendStatus(400);
+    return;
+  } else {
+    //console.log('Data are valid');
+    next();
+  }
+};
+
+// POST - Create new series
+seriesRouter.post('/', validateData, (req, res, next) => {
+  //console.log(req.body.series);
+  const newSeries = req.body.series;
+
+  db.run(
+    `INSERT INTO Series (name, description)
+    VALUES (
+      '${newSeries.name}',
+      '${newSeries.description}'
+    );`,
+    function (err) {
+      if (err) {
+        return next(err);
+      }
+      db.get(
+        `SELECT * FROM Series WHERE id = ${this.lastID};`,
+        (err, row) => {
+          if (err) {
+            return next(err);
+          }
+          res.status(201).send({series: row});
+        }
+      );
+    }
+  );
+});
