@@ -10,3 +10,7 @@ apiRouter.use('/artists', artistsRouter);
 //Import and connect seriesRouter for path 'api/series'
 const seriesRouter = require('./series');
 apiRouter.use('/series', seriesRouter);
+
+//Import and connect issuesRouter for path 'api/:seriesId/issues'
+const issuesRouter = require('./issues');
+apiRouter.use('/:seriesId/issues', issuesRouter);
