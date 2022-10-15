@@ -133,3 +133,25 @@ seriesRouter.put('/:seriesId', (req, res, next) => {
     );
   }
 });
+
+// DELETE - Delete series by its id
+seriesRouter.delete('/:seriesId', (req, res, next) => {
+  db.all(
+    `SELECT * FROM  Issue
+    WHERE series_id = ${req.seriesId};`,
+    function(err, rows) {
+      if (rows.length === 0) {
+        db.run(
+          `DELETE FROM Series 
+          WHERE id = ${req.seriesId};`,
+          function(err) {            
+            res.sendStatus(204);
+          } 
+        );
+      } else {
+        res.sendStatus(400);
+      }
+
+    }
+  );
+});
