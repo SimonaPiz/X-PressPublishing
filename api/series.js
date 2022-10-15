@@ -44,3 +44,8 @@ seriesRouter.get('/', (req, res, next) => {
     }
   );
 });
+
+// GET /api/series/:seriesId
+seriesRouter.get('/:seriesId', (req, res, next) => {
+  res.status(200).send({series: req.series});
+});
