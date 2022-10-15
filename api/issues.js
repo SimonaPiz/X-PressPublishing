@@ -6,6 +6,32 @@ const db = new sqlite3.Database(process.env.TEST_DATABASE || './database.sqlite'
 
 module.exports = issuesRouter;
 
+// Add param ':seriesId' to set it in all Router
+issuesRouter.param('issueId', (req, res, next, index) => {
+  const issueId = Number(index);
+  if (issueId && issueId >= 0) {  
+    db.get(
+      `SELECT * FROM Issues WHERE id = ?;`,
+      [issueId],
+      function (err, row) {
+        if (err) {
+          return next(err);
+        } else if (row) {
+          req.issue = row;
+          req.issueId = issueId;
+          next();
+        } else {
+          res.sendStatus(404);
+          return;
+        }
+      }
+    );
+  } else {
+    res.sendStatus(404);
+    return;
+  }
+});
+
 // GET /api/series/:seriesId/issues
 issuesRouter.get('/', (req, res, next) => {
   db.all(
