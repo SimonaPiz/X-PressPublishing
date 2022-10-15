@@ -94,3 +94,38 @@ seriesRouter.post('/', validateData, (req, res, next) => {
     }
   );
 });
+
+// PUT - Update series by seriesId
+seriesRouter.put('/:seriesId', (req, res, next) => {
+  const updateSeries = req.body.series;
+  //console.log(updateSeries);
+
+  if (
+    typeof updateSeries.name !== 'string' || !updateSeries.name ||
+    typeof updateSeries.description !== 'string' || !updateSeries.description  
+  ) {
+    res.sendStatus(400);
+    return;
+  } else {
+    db.run(
+      `UPDATE Series SET 
+      name = '${updateSeries.name}',
+      description = '${updateSeries.description}'
+      WHERE id = ${req.seriesId};`,
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+        db.get(
+          `SELECT * FROM Series WHERE id = ${req.seriesId};`,
+          (err, row) => {
+            if (err) {
+              return next(err);
+            }
+            res.status(200).send({series: row});
+          }
+        );
+      }
+    );
+  }
+});
