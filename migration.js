@@ -33,3 +33,21 @@ db.run(`CREATE TABLE IF NOT EXISTS Series (
     return;
   }
 });
+
+// Create table Issue in database
+db.run(`CREATE TABLE IF NOT EXISTS Issue (
+  id INTEGER PRIMARY KEY NOT NULL,
+  name TEXT NOT NULL,
+  issue_number INTEGER NOT NULL,
+  pubblication_date TEXT NOT NULL,
+  artist_id INTEGER NOT NULL REFERENCES Artist(id),
+  series_id INTEGER NOT NULL REFERENCES Series(id)
+);`, function (err) {
+  if (err) {
+    console.log(err);
+    return;
+  } else {
+    console.log('Issue table is correctly created');
+    return;
+  }
+});
