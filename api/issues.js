@@ -97,7 +97,7 @@ issuesRouter.post('/', validateData, (req, res, next) => {
   );
 });
 
-// PUT - Update artist by artistId
+// PUT - Update issue by issueId
 issuesRouter.put('/:issueId', validateData, (req, res, next) => {
   const updateIssue = req.body.issue;
   //console.log(updateIssue);
@@ -124,4 +124,18 @@ issuesRouter.put('/:issueId', validateData, (req, res, next) => {
         );
       }
     );
+});
+
+// DELETE - Delete issue by its id
+issuesRouter.delete('/:issueId', (req, res, next) => {
+  db.run(
+    `DELETE FROM Issue 
+    WHERE id = ${req.issueId};`,
+    function(err) {
+      if (err) {
+        return next(err);
+      }
+      res.sendStatus(204);
+    } 
+  );
 });
