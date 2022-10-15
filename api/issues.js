@@ -11,7 +11,7 @@ issuesRouter.param('issueId', (req, res, next, index) => {
   const issueId = Number(index);
   if (issueId && issueId >= 0) {  
     db.get(
-      `SELECT * FROM Issues WHERE id = ?;`,
+      `SELECT * FROM Issue WHERE id = ?;`,
       [issueId],
       function (err, row) {
         if (err) {
@@ -95,4 +95,33 @@ issuesRouter.post('/', validateData, (req, res, next) => {
       );
     }
   );
+});
+
+// PUT - Update artist by artistId
+issuesRouter.put('/:issueId', validateData, (req, res, next) => {
+  const updateIssue = req.body.issue;
+  //console.log(updateIssue);
+
+    db.run(
+      `UPDATE Issue SET 
+      name = '${updateIssue.name}',
+      issue_number = ${updateIssue.issueNumber},
+      publication_date = '${updateIssue.publicationDate}',
+      artist_id = ${updateIssue.artistId}
+      WHERE id = ${req.issueId};`,
+      function (err) {
+        if (err) {
+          return next(err);
+        }
+        db.get(
+          `SELECT * FROM Issue WHERE id = ${req.issueId};`,
+          (err, row) => {
+            if (err) {
+              return next(err);
+            }
+            res.status(200).send({issue: row});
+          }
+        );
+      }
+    );
 });
