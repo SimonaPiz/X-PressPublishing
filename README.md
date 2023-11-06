@@ -9,18 +9,7 @@ The X-Press Publishing internal tool should allow users to:
 - Create, view, update, and delete comic book series
 - Create, view, update, and delete issues of a specific comic book series
 
-You can view all of this functionality in action in the video below:
-
-<video width="100%" height="100%" controls>
-   <source src="https://s3.amazonaws.com/codecademy-content/programs/build-apis/solution-videos/XPressPublishing480.mov" type="video/mp4">
- The markdown processor does not support the video tag.
-</video>
-
-## How To Begin
-
-To start, download the starting code for this project <a href="https://s3.amazonaws.com/codecademy-content/programs/build-apis/projects/capstone-project-1-x-press-publishing.zip" target="_blank">here</a>. After downloading the zip folder, double click it to uncompress it and access the contents of this project.
-
-To view your local version of the site, open **index.html** in Google Chrome.
+You can view all of this functionality in action in the video below: [▶](https://s3.amazonaws.com/codecademy-content/programs/build-apis/solution-videos/XPressPublishing480.mov)
 
 ## Implementation Details
 
@@ -63,31 +52,31 @@ To complete this project, I needed to create the database tables and API routes 
 
 ✔ [#4 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/4)
 
-**/api/artists**
-- GET
-- POST
+  **/api/artists**
+   - GET
+   - POST
   
-**/api/artists/:artistId**
-- GET
-- PUT
-- DELETE
+  **/api/artists/:artistId**
+   - GET
+   - PUT
+   - DELETE
 
-**/api/series**
-- GET
-- POST
+  **/api/series**
+   - GET
+   - POST
 
-**/api/series/:seriesId**
-- GET
-- PUT
-- DELETE
+  **/api/series/:seriesId**
+   - GET
+   - PUT
+   - DELETE
 
-**/api/series/:seriesId/issues**
-- GET
-- POST
+  **/api/series/:seriesId/issues**
+   - GET
+   - POST
 
-**/api/series/:seriesId/issues/:issueId**
-- PUT
-- DELETE
+  **/api/series/:seriesId/issues/:issueId**
+   - PUT
+   - DELETE
 
 
 ## Testing
