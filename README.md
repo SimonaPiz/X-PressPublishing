@@ -1,4 +1,17 @@
 # X-Press Publishing
+> About
+I build all of the routing and database logic for an internal tool for a comic book publishing company
+
+<img src="" width="600px" alt="preview" title="preview"/>
+
+## Table of Contents
+* [Project Overview](#project-overview)
+* [Implementation Details](#implementation-details)
+* [Testing](#testing)
+* [Technologies Used](#technologies-used)
+* [Setup](#setup)
+* [Acknowledgements](#acknowledgements)
+* [Author](#author)
 
 ## Project Overview
 
@@ -15,75 +28,75 @@ You can view all of this functionality in action in the video below: [▶](https
 
 To complete this project, I needed to create the database tables and API routes specified. 
 
-### Setup
-- [x] Setup Project
-- [x] Setup Server. Create and export the Express app
-- [x] Create and export API Router for `/api`
+- [x]  Setup
+  - Setup Project
+  - Setup Server. Create and export the Express app
+  - Create and export API Router for `/api`
 
-✔ [#2 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/2)
-
-
-### Create Database Table
-
-✔ [#3 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/3)
-
-- [x] **Artist**
-  - id - Integer, primary key, required
-  - name - Text, required
-  - date_of_birth - Text, required
-  - biography - Text, required
-  - is_currently_employed - Integer, defaults to `1`
-
-- [x] **Series**
-  - id - Integer, primary key, required
-  - name - Text, required
-  - description - Text, required
-
-- [x] **Issue**
-  - id - Integer, primary key, required
-  - name - Text, required
-  - issue_number - Text, required
-  - publication_date - Text, required
-  - artist_id - Integer, foreign key, required
-  - series_id - Integer, foreign key, required
+  ✔ [#2 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/2)
 
 
-### Create Route Paths
+- [x]  Create Database Table
 
-✔ [#4 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/4)
+  ✔ [#3 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/3)
+
+  - [x] **Artist**
+    - id - Integer, primary key, required
+    - name - Text, required
+    - date_of_birth - Text, required
+    - biography - Text, required
+    - is_currently_employed - Integer, defaults to `1`
+
+  - [x] **Series**
+    - id - Integer, primary key, required
+    - name - Text, required
+    - description - Text, required
+
+  - [x] **Issue**
+    - id - Integer, primary key, required
+    - name - Text, required
+    - issue_number - Text, required
+    - publication_date - Text, required
+    - artist_id - Integer, foreign key, required
+    - series_id - Integer, foreign key, required
+
+
+- [x]  Create Route Paths
+
+  ✔ [#4 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/4)
 
   **/api/artists**
-   - GET
-   - POST
+    - GET
+    - POST
   
   **/api/artists/:artistId**
-   - GET
-   - PUT
-   - DELETE
+    - GET
+    - PUT
+    - DELETE
 
   **/api/series**
-   - GET
-   - POST
+    - GET
+    - POST
 
   **/api/series/:seriesId**
-   - GET
-   - PUT
-   - DELETE
+    - GET
+    - PUT
+    - DELETE
 
   **/api/series/:seriesId/issues**
-   - GET
-   - POST
+    - GET
+    - POST
 
   **/api/series/:seriesId/issues/:issueId**
-   - PUT
-   - DELETE
+    - PUT
+    - DELETE
 
 
 ## Testing
 
 A testing suite has been provided. 
 
-✔ All Test Passed
+  ✔ All Test Passed
 
   ![Test Results](https://user-images.githubusercontent.com/91121660/280709703-75038295-94bf-482d-9a19-6c60fdf7e0d4.png)
 
@@ -93,3 +106,22 @@ In the root directory of the project run
 $ npm  install
 ```
 To view a local version of the site, open **index.html** in the browser.
+
+## Technologies Used
+  - React 15
+  - react-router-dom 4
+  - mocha 10
+  - chai 4
+  - express 4
+  - sqlite3 5
+  - body-parser 1
+  - cors 2
+  - errorhandler 1
+
+## Acknowledgements
+
+This project comes from the [Codecademy's Create a Back-End with JavaScript](https://www.codecademy.com/learn/paths/create-a-back-end-app-with-javascript) course.
+
+## Author
+
+- [Simona Pizio](https://github.com/SimonaPiz)
