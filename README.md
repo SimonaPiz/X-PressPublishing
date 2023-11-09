@@ -1,8 +1,7 @@
 # X-Press Publishing
-> About
-I build all of the routing and database logic for an internal tool for a comic book publishing company
+> I build all of the routing and database logic for an internal tool for a comic book publishing company
 
-<img src="" width="600px" alt="preview" title="preview"/>
+<img src="https://github.com/SimonaPiz/X-PressPublishing/assets/91121660/caf4d764-9f00-4d7d-b8b2-49d5f801801e" width="600px" alt="preview" title="preview"/>
 
 ## Table of Contents
 * [Project Overview](#project-overview)
@@ -36,23 +35,23 @@ To complete this project, I needed to create the database tables and API routes 
   ✔ [#2 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/2)
 
 
-- [x]  Create Database Table
+- [x]  Create Database Tables
 
   ✔ [#3 issue](https://github.com/SimonaPiz/X-PressPublishing/issues/3)
 
-  - [x] **Artist**
+  - **Artist**
     - id - Integer, primary key, required
     - name - Text, required
     - date_of_birth - Text, required
     - biography - Text, required
     - is_currently_employed - Integer, defaults to `1`
 
-  - [x] **Series**
+  - **Series**
     - id - Integer, primary key, required
     - name - Text, required
     - description - Text, required
 
-  - [x] **Issue**
+  - **Issue**
     - id - Integer, primary key, required
     - name - Text, required
     - issue_number - Text, required
